@@ -1,0 +1,12 @@
+/home/t3mp/github/mdsns_frontend/t3mp_converter/target/debug/deps/os_str_bytes-ae4a37103006f5da.rmeta: /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/lib.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/common/mod.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/common/raw.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/iter.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/pattern.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/raw_str.rs
+
+/home/t3mp/github/mdsns_frontend/t3mp_converter/target/debug/deps/libos_str_bytes-ae4a37103006f5da.rlib: /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/lib.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/common/mod.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/common/raw.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/iter.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/pattern.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/raw_str.rs
+
+/home/t3mp/github/mdsns_frontend/t3mp_converter/target/debug/deps/os_str_bytes-ae4a37103006f5da.d: /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/lib.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/common/mod.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/common/raw.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/iter.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/pattern.rs /home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/raw_str.rs
+
+/home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/lib.rs:
+/home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/common/mod.rs:
+/home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/common/raw.rs:
+/home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/iter.rs:
+/home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/pattern.rs:
+/home/t3mp/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.1/src/raw_str.rs:
