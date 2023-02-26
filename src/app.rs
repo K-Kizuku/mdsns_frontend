@@ -1,12 +1,71 @@
+use md_sns::contents_edit::ContentsEdit;
+use md_sns::contents_post::ContentsPost;
+use md_sns::list::List;
+use md_sns::user::Users;
 use yew::prelude::*;
+use yew_router::prelude::*;
+
+#[derive(Clone, Routable, PartialEq)]
+pub enum Route {
+    #[at("/")]
+    List,
+    // #[at("/sign_up")]
+    // SignUp,
+    // #[at("/sign_in")]
+    // SignIn,
+    #[at("/users")]
+    Users,
+    #[at("/contents_post")]
+    ContentsPost,
+    #[at("/contents_edit")]
+    ContentsEdit,
+    #[not_found]
+    #[at("/404")]
+    NotFound,
+}
+
+fn switch(routes: Route) -> Html {
+    match routes {
+        // Route::Home => html! {
+        //     <Home />
+        // },
+        // Route::SignIn => html! {
+        //     <SignIn />
+        // },
+        // Route::SignUp => html! {
+        //     <SignUp />
+        // },
+        Route::List => html! {
+            <List />
+        },
+        Route::Users => html! {
+            <Users />
+        },
+        Route::ContentsEdit => html! {
+            <ContentsEdit />
+        },
+        Route::ContentsPost => html! {
+            <ContentsPost />
+        },
+        Route::NotFound => html! { <h1>{ "404" }</h1> },
+    }
+}
+
+#[function_component(CustomHeader)]
+pub fn custom_header() -> Html {
+    html! {
+        <div class="header">{"ヘッダーだよ"}</div>
+    }
+}
 
 #[function_component(App)]
 pub fn app() -> Html {
     html! {
-        <main>
-            <img class="logo" src="https://yew.rs/img/logo.png" alt="Yew logo" />
-            <h1>{ "Hello World!" }</h1>
-            <span class="subtitle">{ "from Yew with " }<i class="heart" /></span>
-        </main>
+        <>
+            <CustomHeader />
+            <BrowserRouter>
+                <Switch<Route> render={switch} /> // <- must be child of <BrowserRouter>
+            </BrowserRouter>
+        </>
     }
 }
