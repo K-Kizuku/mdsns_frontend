@@ -1,6 +1,6 @@
 use md_sns::contents_edit::ContentsEdit;
 use md_sns::contents_post::ContentsPost;
-use md_sns::list::List;
+use md_sns::home::Home;
 use md_sns::user::Users;
 use yew::prelude::*;
 use yew_router::prelude::*;
@@ -8,7 +8,7 @@ use yew_router::prelude::*;
 #[derive(Clone, Routable, PartialEq)]
 pub enum Route {
     #[at("/")]
-    List,
+    Home,
     // #[at("/sign_up")]
     // SignUp,
     // #[at("/sign_in")]
@@ -35,8 +35,8 @@ fn switch(routes: Route) -> Html {
         // Route::SignUp => html! {
         //     <SignUp />
         // },
-        Route::List => html! {
-            <List />
+        Route::Home => html! {
+            <Home />
         },
         Route::Users => html! {
             <Users />
