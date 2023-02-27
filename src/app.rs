@@ -1,3 +1,4 @@
+use md_sns::auth::Auth;
 use md_sns::contents_edit::ContentsEdit;
 use md_sns::contents_post::ContentsPost;
 use md_sns::home::Home;
@@ -11,8 +12,8 @@ pub enum Route {
     Home,
     // #[at("/sign_up")]
     // SignUp,
-    // #[at("/sign_in")]
-    // SignIn,
+    #[at("/auth")]
+    Auth,
     #[at("/users")]
     Users,
     #[at("/contents_post")]
@@ -35,6 +36,9 @@ fn switch(routes: Route) -> Html {
         // Route::SignUp => html! {
         //     <SignUp />
         // },
+        Route::Auth => html! {
+            <Auth />
+        },
         Route::Home => html! {
             <Home />
         },

@@ -1,2 +1,5 @@
 dist/
 target/
+key.json
+.env
+auth0.js
