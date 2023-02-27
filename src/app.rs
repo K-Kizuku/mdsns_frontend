@@ -58,7 +58,30 @@ fn switch(routes: Route) -> Html {
 #[function_component(CustomHeader)]
 pub fn custom_header() -> Html {
     html! {
-        <div class="header">{"ヘッダーだよ"}</div>
+        <header class="header">
+      <div class="header__inner">
+        <h1 class="header__title header-title">
+          <a href="#">
+            {"ロゴ"}
+          </a>
+        </h1>
+
+        <nav class="header__nav nav" id="js-nav">
+          <ul class="nav__items nav-items">
+            <li class="nav-items__item"><a href="">{"メニュー"}</a></li>
+            <li class="nav-items__item"><a href="">{"メニュー"}</a></li>
+            <li class="nav-items__item"><a href="">{"メニュー"}</a></li>
+            <li class="nav-items__item"><a href="">{"メニュー"}</a></li>
+          </ul>
+        </nav>
+
+        <button class="header__hamburger hamburger" id="js-hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
     }
 }
 
