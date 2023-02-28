@@ -2,15 +2,18 @@ use gloo::storage::LocalStorage;
 use gloo_net::http::Request;
 use gloo_net::http::Response;
 use gloo_storage::Storage;
+use pulldown_cmark::{html, Options, Parser};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
+use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::VNode;
 
 #[derive(Clone, PartialEq, Deserialize)]
 struct Favorite {
     id: String,
     name: String,
-    description: String,
+    description: Option<String>,
     created_at: String,
     updated_at: String,
 }
@@ -19,7 +22,7 @@ struct Favorite {
 struct Author {
     id: String,
     name: String,
-    description: String,
+    description: Option<String>,
     created_at: String,
     updated_at: String,
 }
@@ -29,7 +32,7 @@ struct PostProps {
     id: String,
     content_md: String,
     content_html: String,
-    reply_to: String,
+    reply_at: Option<String>,
     author: Author,
     favorite_count: i64,
     favorited_by: Vec<PostProps>,
@@ -89,11 +92,11 @@ pub fn home() -> Html {
         use_effect_with_deps(
             move |_| {
                 let post_list = post_list.clone();
-                let token: String = LocalStorage::get("token").unwrap_or_default();
+                let token: String = LocalStorage::get("authentication").unwrap_or_default();
                 wasm_bindgen_futures::spawn_local(async move {
                     let posts: Vec<PostProps> =
                         Request::get("http://mdsns.pigeons.house/api/posts")
-                            .header("Authorization", &token)
+                            .header("Google", &token)
                             .send()
                             .await
                             .unwrap()
@@ -101,55 +104,23 @@ pub fn home() -> Html {
                             .await
                             .unwrap();
                     post_list.set(posts);
+                    // let html = cmark(post_list.conte);
+                    // let div = web_sys::window()
+                    //     .unwrap()
+                    //     .document()
+                    //     .unwrap()
+                    //     .create_element("div")
+                    //     .unwrap();
+                    // div.set_inner_html(&html);
+
+                    // let node = Node::from(div);
+                    // let vnode = VNode::VRef(node);
                 });
                 || ()
             },
             (),
         );
-        let favo_button = |id: String| {
-            let onclick = Callback::from(move |e: MouseEvent| {
-                let id = id.clone();
-                let favo = favo.clone();
-                let token: String = LocalStorage::get("token").unwrap_or_default();
-                wasm_bindgen_futures::spawn_local(async move {
-                    // let client = reqwest::Client::new();
-                    // let res = client
-                    //     .post(format!(
-                    //         "{}{}",
-                    //         "http://mdsns.pigeons.house/api/favorites/", id
-                    //     ))
-                    //     // .header(key, value)
-                    //     .header("Authorization", &token)
-                    //     // .body(serde_json::to_string(&authorization))
-                    //     // .form(&authorization)
-                    //     // .json(&serde_json::to_string(&authorization).unwrap())
-                    //     // .body(Json(&json!({"post_id": "value"})))
-                    //     // .json(&(*favo))
-                    //     .send()
-                    //     .await
-                    //     .unwrap()
-                    //     .json()
-                    //     .await
-                    //     .unwrap();
-                    let favos: Vec<PostProps> = Request::post(
-                        &("http://mdsns.pigeons.house/api/favorites/".to_owned() + &id),
-                    )
-                    .header("Authorization", &token)
-                    .send()
-                    .await
-                    .unwrap()
-                    .json()
-                    .await
-                    .unwrap();
-                    // post_list.set(posts);
-                });
-            });
-            html! {
-                <div>
-                    <button {onclick}>{"投稿"}</button>
-                </div>
-            }
-        };
+
         // use_effect_with_deps(
         //     move |_| {
         //         // Make a call to DOM API after component is rendered
@@ -162,6 +133,49 @@ pub fn home() -> Html {
         //     test.clone(),
         // );
     }
+    let mut favo_button = |id: String| {
+        let onclick = Callback::from(move |e: MouseEvent| {
+            let id = id.clone();
+            let favo = favo.clone();
+            let token: String = LocalStorage::get("token").unwrap_or_default();
+            wasm_bindgen_futures::spawn_local(async move {
+                // let client = reqwest::Client::new();
+                // let res = client
+                //     .post(format!(
+                //         "{}{}",
+                //         "http://mdsns.pigeons.house/api/favorites/", id
+                //     ))
+                //     // .header(key, value)
+                //     .header("Authorization", &token)
+                //     // .body(serde_json::to_string(&authorization))
+                //     // .form(&authorization)
+                //     // .json(&serde_json::to_string(&authorization).unwrap())
+                //     // .body(Json(&json!({"post_id": "value"})))
+                //     // .json(&(*favo))
+                //     .send()
+                //     .await
+                //     .unwrap()
+                //     .json()
+                //     .await
+                //     .unwrap();
+                let favos: i64 =
+                    Request::post(&("http://mdsns.pigeons.house/api/favorites/".to_owned() + &id))
+                        .header("Google", &token)
+                        .send()
+                        .await
+                        .unwrap()
+                        .json()
+                        .await
+                        .unwrap();
+                favo.set(favos);
+            });
+        });
+        html! {
+            <div>
+                <button {onclick}>{"いいね"}</button>
+            </div>
+        }
+    };
 
     // post_list.set(demo);
     // Callback::from(|_: _| post_list.set(demo));
@@ -174,8 +188,22 @@ pub fn home() -> Html {
                 html!{
                     <div>
                     <div>
-                    {e.id.to_string()}
-                    {e.content_md.to_string()}
+                    {e.created_at.to_string()}
+                    {e.author.name.to_string()}
+                    // {e.content_md.to_string()}
+                    {{let html = cmark(e.content_md.to_string());
+                    let div = web_sys::window()
+                        .unwrap()
+                        .document()
+                        .unwrap()
+                        .create_element("div")
+                        .unwrap();
+                    div.set_inner_html(&html);
+
+                    let node = Node::from(div);
+                    let vnode = VNode::VRef(node);
+                vnode}}
+                    // {favo_button(e.id.clone())}
                     </div>
 
                     </div>
@@ -186,4 +214,22 @@ pub fn home() -> Html {
             </div>
         </div>
     }
+}
+
+fn cmark(text: String) -> String {
+    let mut options = Options::empty();
+    options.insert(
+        Options::ENABLE_TABLES
+            | Options::ENABLE_FOOTNOTES
+            | Options::ENABLE_STRIKETHROUGH
+            | Options::ENABLE_TASKLISTS
+            | Options::ENABLE_SMART_PUNCTUATION,
+    );
+    let parser = Parser::new_ext(&text, options);
+
+    let mut html_output = String::new();
+    // parser changes rendered String for markdown
+    html::push_html(&mut html_output, parser);
+
+    html_output
 }
