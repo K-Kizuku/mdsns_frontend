@@ -57,12 +57,12 @@ pub fn auth() -> Html {
             login_auth();
         });
         html! {
-            <button class="primary-button" {onclick}>{"ログイン"}</button>
+            <button class="primary-button" {onclick}>{"Google認証"}</button>
         }
     };
     html! {
-        <div>
-            <div class="header">{"authだよ"}</div>
+        <div class="auth__parent">
+            <div class="header">{"Google認証でサインイン"}</div>
             {button_login}
         </div>
     }
