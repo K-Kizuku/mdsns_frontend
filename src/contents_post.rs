@@ -75,6 +75,7 @@ pub fn contents_post() -> Html {
             let input_md = input_md.clone();
 
             wasm_bindgen_futures::spawn_local(async move {
+                let token: String = LocalStorage::get("authentication").unwrap_or_default();
                 let client = reqwest::Client::new();
                 let postData = PostContents {
                     content_md: input_md.to_string(),
@@ -85,6 +86,7 @@ pub fn contents_post() -> Html {
                     // .body(serde_json::to_string(&authorization))
                     // .form(&authorization)
                     // .json(&serde_json::to_string(&authorization).unwrap())
+                    .header("Google", &token)
                     .json(
                         &json!({"content_md": input_md.to_string(),"content_html": "".to_string()}),
                     )

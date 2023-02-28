@@ -1,8 +1,13 @@
+use crate::route::Route;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use yew_router::prelude::use_navigator;
+use yew_router::prelude::Redirect;
 
 #[function_component(Auth)]
 pub fn auth() -> Html {
+    let flag = use_state(|| false);
+    // let navigator = use_navigator().unwrap();
     // wasm-bindgen will automatically take care of including this script
     // #[wasm_bindgen(module = "/auth0.js")]
     // extern "C" {
@@ -21,11 +26,15 @@ pub fn auth() -> Html {
             login()
         }
         temp();
+        // navigator.push(&Route::Home);
+        // let ss = |_| navigator.push(&Route::Home);
     }
     let button_login = {
         // let test = SignInProps { email: "".to_string(), password: "".to_string() };
+        let flag = flag.clone();
         // let authorization = authorization.clone();
         let onclick = Callback::from(move |e: MouseEvent| {
+            let flag = flag.clone();
             // let authorization = authorization.clone();
 
             // wasm_bindgen_futures::spawn_local(async move {
@@ -55,6 +64,10 @@ pub fn auth() -> Html {
             //     LocalStorage::set("jwt", res.ok());
             // });
             login_auth();
+            // flag.set(true);
+            // return html! {
+            //     <Redirect<Route> to={Route::Home}/>
+            // };
         });
         html! {
             <button class="primary-button" {onclick}>{"ログイン"}</button>
@@ -64,6 +77,15 @@ pub fn auth() -> Html {
         <div>
             <div class="header">{"authだよ"}</div>
             {button_login}
+            {if *flag {
+                html!{
+                    <Redirect<Route> to={Route::Home} />
+                }
+            }else{
+                html!{<></>}
+            }
+
+        }
         </div>
     }
 }
