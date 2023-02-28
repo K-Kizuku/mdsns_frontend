@@ -2,6 +2,7 @@ use md_sns::auth::Auth;
 use md_sns::contents_edit::ContentsEdit;
 use md_sns::contents_post::ContentsPost;
 use md_sns::home::Home;
+// use md_sns::route::Route;
 use md_sns::user::Users;
 use yew::prelude::*;
 use yew_router::prelude::*;

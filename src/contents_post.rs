@@ -1,16 +1,26 @@
 use gloo::storage::LocalStorage;
 use gloo_storage::Storage;
+use serde_json::json;
+// use yew::format::Json;
 
 use pulldown_cmark::{html, Options, Parser};
 use reqwest;
+use serde::{Deserialize, Serialize};
 use web_sys::Node;
 use web_sys::{EventTarget, HtmlInputElement, HtmlTextAreaElement};
 use yew::prelude::*;
 use yew::virtual_dom::VNode;
 
+#[derive(Clone, PartialEq, Deserialize)]
+struct PostContents {
+    content_md: String,
+    content_html: String,
+}
+
 #[function_component(ContentsPost)]
 pub fn contents_post() -> Html {
     let input_md = use_state(|| String::from(""));
+    let output_html: UseStateHandle<VNode> = use_state(|| html!());
     let input_md = input_md.clone();
     // let vnode_ref = use_state(|| );
     let input_textarea = {
@@ -36,6 +46,8 @@ pub fn contents_post() -> Html {
 
         let node = Node::from(div);
         let vnode = VNode::VRef(node);
+        let vnode2 = vnode.clone();
+        // output_html.set(vnode2);
         // let input_md = input_md.clone();
         // let html = cmark(input_md.to_string());
         // let div = web_sys::window()
@@ -61,14 +73,21 @@ pub fn contents_post() -> Html {
     let post_button = {
         let onclick = Callback::from(move |e: MouseEvent| {
             let input_md = input_md.clone();
+
             wasm_bindgen_futures::spawn_local(async move {
                 let client = reqwest::Client::new();
+                let postData = PostContents {
+                    content_md: input_md.to_string(),
+                    content_html: "".to_string(),
+                };
                 let res = client
-                    .post("https://app.swaggerhub.com/apis/BULLBULL1230/MDSNS/1.0.0#/api/posts")
+                    .post("http://mdsns.pigeons.house/api/posts")
                     // .body(serde_json::to_string(&authorization))
                     // .form(&authorization)
                     // .json(&serde_json::to_string(&authorization).unwrap())
-                    .json(&(*input_md))
+                    .json(
+                        &json!({"content_md": input_md.to_string(),"content_html": "".to_string()}),
+                    )
                     .send()
                     .await
                     .unwrap()
