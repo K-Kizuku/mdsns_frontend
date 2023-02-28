@@ -59,28 +59,22 @@ fn switch(routes: Route) -> Html {
 #[function_component(CustomHeader)]
 pub fn custom_header() -> Html {
     html! {
-        <header class="header">
+    <header class="header__parent">
       <div class="header__inner">
         <h1 class="header__title header-title">
-          <a href="#">
-            {"ロゴ"}
+          <a href="/">
+            {"MDSNS"}
           </a>
         </h1>
 
         <nav class="header__nav nav" id="js-nav">
           <ul class="nav__items nav-items">
-            <li class="nav-items__item"><a href="">{"メニュー"}</a></li>
-            <li class="nav-items__item"><a href="">{"メニュー"}</a></li>
-            <li class="nav-items__item"><a href="">{"メニュー"}</a></li>
-            <li class="nav-items__item"><a href="">{"メニュー"}</a></li>
+            <li class="nav-items__item"><a href="/auth">{"サインイン"}</a></li>
+            <li class="nav-items__item"><a href="/">{"タイムライン"}</a></li>
+            <li class="nav-items__item"><a href="/users">{"マイページ"}</a></li>
+            <li class="nav-items__item post"><a href="/contents_post">{"投稿する"}</a></li>
           </ul>
         </nav>
-
-        <button class="header__hamburger hamburger" id="js-hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
       </div>
     </header>
     }

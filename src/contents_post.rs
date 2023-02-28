@@ -63,7 +63,7 @@ pub fn contents_post() -> Html {
 
         // let input_md = input_md.clone();
         html! {
-            <div>
+            <div class="create__view">
                 <textarea oninput={onchange} />
                 {vnode}
             </div>
@@ -103,9 +103,11 @@ pub fn contents_post() -> Html {
     };
     html! {
         <div>
-            <h1>{"投稿画面だよ"}</h1>
+            <div class="create__head">
+                <h2>{"新規投稿"}</h2>
+                {post_button}
+            </div>
             {input_textarea}
-            {post_button}
         </div>
     }
 }
